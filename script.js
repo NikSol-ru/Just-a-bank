@@ -63,5 +63,7 @@ const navLinks = document.querySelector('.nav__links');
 navLinks.addEventListener('click', (e) => {
   e.preventDefault();
   const href = e.target.getAttribute('href');
-  document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+  if (e.target.getAttribute('href')) {
+    document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+  }
 });
