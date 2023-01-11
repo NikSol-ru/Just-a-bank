@@ -8,6 +8,12 @@ const overlay = document.querySelector('.overlay');
 const btnCloseModalWindow = document.querySelector('.btn--close-modal-window');
 const btnsOpenModalWindow = document.querySelectorAll('.btn--show-modal-window');
 
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+
+const section1 = document.getElementById('section--1');
+const section2 = document.getElementById('section--2');
+const section3 = document.getElementById('section--3');
+
 const openModalWindow = function () {
   modalWindow.classList.remove('hidden');
   overlay.classList.remove('hidden');
@@ -36,9 +42,6 @@ document.addEventListener('keydown', function (e) {
 
 
 //Scroll to
-const btnScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.getElementById('section--1');
-
 btnScrollTo.addEventListener('click', (e) => {
   e.preventDefault();
   // Старый метод:
@@ -54,3 +57,11 @@ btnScrollTo.addEventListener('click', (e) => {
   section1.scrollIntoView({ behavior: 'smooth' });
 });
 
+
+//menu click scroll
+const navLinks = document.querySelector('.nav__links');
+navLinks.addEventListener('click', (e) => {
+  e.preventDefault();
+  const href = e.target.getAttribute('href');
+  document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+});
