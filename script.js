@@ -1,8 +1,8 @@
 'use strict';
 
 ///////////////////////////////////////
-// Modal window
 
+// element selection
 const modalWindow = document.querySelector('.modal-window');
 const overlay = document.querySelector('.overlay');
 const btnCloseModalWindow = document.querySelector('.btn--close-modal-window');
@@ -14,6 +14,14 @@ const section1 = document.getElementById('section--1');
 const section2 = document.getElementById('section--2');
 const section3 = document.getElementById('section--3');
 
+const navLinks = document.querySelector('.nav__links');
+
+const tabs = document.querySelectorAll('.operations__tab');
+const tabContainer = document.querySelector('.operations__tab-container');
+const tabContent = document.querySelectorAll('.operations__content');
+
+
+// Modal window
 const openModalWindow = function () {
   modalWindow.classList.remove('hidden');
   overlay.classList.remove('hidden');
@@ -53,13 +61,12 @@ btnScrollTo.addEventListener('click', (e) => {
   //   behavior: 'smooth'
   // });
 
-  //Современный метод:
+  // Современный метод:
   section1.scrollIntoView({ behavior: 'smooth' });
 });
 
 
-//menu click scroll
-const navLinks = document.querySelector('.nav__links');
+// menu click scroll
 navLinks.addEventListener('click', (e) => {
   e.preventDefault();
   const href = e.target.getAttribute('href');
@@ -67,3 +74,15 @@ navLinks.addEventListener('click', (e) => {
     document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
   }
 });
+
+// tab operations
+tabContainer.addEventListener('click', (e) => {
+  e.preventDefault();
+  const btnClicked = e.target.closest('.operations__tab');
+  if (!btnClicked) { return; }
+  tabs.forEach(tab => tab.classList.remove('operations__tab--active'));
+  tabContent.forEach(elem => elem.classList.remove('operations__content--active'));
+  btnClicked.classList.add('operations__tab--active');
+  document.querySelector(`.operations__content--${btnClicked.dataset.tab}`).classList.add('operations__content--active');
+});
+
