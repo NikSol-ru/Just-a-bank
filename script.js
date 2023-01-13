@@ -14,6 +14,7 @@ const section1 = document.getElementById('section--1');
 const section2 = document.getElementById('section--2');
 const section3 = document.getElementById('section--3');
 
+const nav = document.querySelector('.nav');
 const navLinks = document.querySelector('.nav__links');
 
 const tabs = document.querySelectorAll('.operations__tab');
@@ -70,7 +71,7 @@ btnScrollTo.addEventListener('click', (e) => {
 navLinks.addEventListener('click', (e) => {
   e.preventDefault();
   const href = e.target.getAttribute('href');
-  if (e.target.getAttribute('href')) {
+  if (!e.target.classList.contains('nav__link--btn') && e.target.classList.contains('nav__link')) {
     document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
   }
 });
@@ -86,3 +87,23 @@ tabContainer.addEventListener('click', (e) => {
   document.querySelector(`.operations__content--${btnClicked.dataset.tab}`).classList.add('operations__content--active');
 });
 
+// Navigation bar fade animation
+
+const navLinksHoverAnimation = function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    const linkOver = e.target;
+    const siblingLink = linkOver.closest('.nav__links').querySelectorAll('.nav__link');
+    const logo = linkOver.closest('.nav').querySelector('.nav__logo');
+    const logoText = linkOver.closest('.nav').querySelector('.nav__text');
+    siblingLink.forEach(link => {
+      if (link !== linkOver) {
+        link.style.opacity = this;
+      }
+    });
+    logo.style.opacity = logoText.style.opacity = this;
+  }
+};
+
+nav.addEventListener('mouseover', navLinksHoverAnimation.bind(0.4));
+
+nav.addEventListener('mouseout', navLinksHoverAnimation.bind(1));
