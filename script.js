@@ -12,6 +12,7 @@ const btnsOpenModalWindow = document.querySelectorAll('.btn--show-modal-window')
 
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 
+const allSections = document.querySelectorAll('.section');
 const section1 = document.getElementById('section--1');
 const section2 = document.getElementById('section--2');
 const section3 = document.getElementById('section--3');
@@ -112,13 +113,7 @@ nav.addEventListener('mouseout', navLinksHoverAnimation.bind(1));
 
 // Sticky navigation
 
-const options = {
-  root: null,
-  threshold: 0,
-  rootMargin: '-100px',
-};
-
-const callback = function (entries, observer) {
+const navSticky = function (entries) {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       nav.classList.remove('sticky');
@@ -128,5 +123,32 @@ const callback = function (entries, observer) {
   });
 };
 
-const observer = new IntersectionObserver(callback, options);
-observer.observe(header);
+const headerObserver = new IntersectionObserver(navSticky, {
+  root: null,
+  threshold: 0,
+  rootMargin: '-100px',
+});
+headerObserver.observe(header);
+
+
+//the appearance of sections of the site
+
+const appearanceSection = function (entries, observer) {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.remove('section--hidden');
+      observer.unobserve(entry.target);
+    }
+  });
+};
+
+const sectionObserver = new IntersectionObserver(appearanceSection, {
+  root: null,
+  threshold: 0.1,
+  rootMargin: '0px',
+});
+
+allSections.forEach(section => {
+  section.classList.add('section--hidden');
+  sectionObserver.observe(section);
+});
