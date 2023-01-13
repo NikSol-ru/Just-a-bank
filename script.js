@@ -3,6 +3,8 @@
 ///////////////////////////////////////
 
 // element selection
+const header = document.querySelector('.header');
+
 const modalWindow = document.querySelector('.modal-window');
 const overlay = document.querySelector('.overlay');
 const btnCloseModalWindow = document.querySelector('.btn--close-modal-window');
@@ -107,3 +109,24 @@ const navLinksHoverAnimation = function (e) {
 nav.addEventListener('mouseover', navLinksHoverAnimation.bind(0.4));
 
 nav.addEventListener('mouseout', navLinksHoverAnimation.bind(1));
+
+// Sticky navigation
+
+const options = {
+  root: null,
+  threshold: 0,
+  rootMargin: '-100px',
+};
+
+const callback = function (entries, observer) {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      nav.classList.remove('sticky');
+    } else {
+      nav.classList.add('sticky');
+    }
+  });
+};
+
+const observer = new IntersectionObserver(callback, options);
+observer.observe(header);
